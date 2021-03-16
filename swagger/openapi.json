@@ -8,6 +8,9 @@
   "servers": [
     {
       "url": "https://trello-app-clone.herokuapp.com/"
+    },
+    {
+      "url": "http://localhost:5000/"
     }
   ],
   "tags": [
@@ -21,25 +24,68 @@
 
 
   "paths": {
-    "/users/{id}": {
-      "get": {
-        "summary": "returns simple answer from get",
+    "/auth/login": {
+      "post": {
+        "summary": "login",
         "tags": [
-          "API functions"
+          "auth"
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "name": "data",
+            "in": "header",
             "required": true,
-            "description": "simple parameter",
+            "description": "data gor login",
             "schema": {
-              "type": "string",
-              "example": "1"
+              "type": "object",
+              "example": {
+                "email": "string",
+                "userName": "string",
+                "rememberMe": false
+              }
             }
           }
         ],
-        "description": "parameter id just for test",
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "document": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "email": "string",
+                    "userName": "string || ===email"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "register",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "description": "data for register",
+            "schema": {
+              "example": {
+                  "email": "string",
+                  "password": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
         "responses": {
           "200": {
             "description": "OK",
@@ -47,48 +93,10 @@
               "document": {
                 "schema": {
                   "type": "string",
-                  "example": "some text"
+                  "example": "user created"
                 }
               }
             }
-          }
-        }
-      },
-      "post": {
-        "summary": "returns simple answer from post",
-        "tags": [
-          "API functions"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Info"
-              },
-              "example": {
-                "country": "Russia",
-                "city": "Spb"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "simple parameter",
-            "schema": {
-              "type": "string",
-              "example": "1"
-            }
-          }
-        ],
-        "description": "parameter id just for test",
-        "responses": {
-          "204": {
-            "description": "OK"
           }
         }
       }
@@ -97,15 +105,62 @@
 
   "components": {
     "schemas": {
-      "Info": {
+      "User": {
         "type": "object",
         "properties": {
-          "country": {
+          "userName": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "email": {
+            "type": "string",
+            "required": ["*"],
+            "uniqueItems": true
+          },
+          "password": {
+            "type": "string",
+            "required": ["*"]
+          },
+          "rememberMe": {
+            "type": "boolean",
+            "required": ["*"]
+          },
+          "teams": {
+            "type": "array"
+          },
+          "boards": {
+            "type": "array"
+          },
+          "verified": {
+            "type": "boolean",
+            "required": ["*"]
+          },
+          "avatar": {
             "type": "string"
           },
-          "city": {
+          "token":{
             "type": "string"
+          },
+          "tokenDeathTime":{
+            "type": "number"
+          },
+          "resetPasswordToken":{
+            "type": "string"
+          },
+          "resetPasswordTokenDeathTime":{
+            "type": "number"
           }
+        }
+      },
+      "Board": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "required": ["*"],
+            "uniqueItems": true
+          }
+
         }
       }
     }
