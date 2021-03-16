@@ -11,7 +11,7 @@ let auth = express.Router();
 
 let corsOptions = {
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3000/'
 }
 
 auth.post('/login',cors(corsOptions), login)
