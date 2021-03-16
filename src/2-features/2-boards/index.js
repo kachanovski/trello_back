@@ -1,8 +1,15 @@
 const express = require('express')
+const cors = require('cors')
+
 
 const boards = express.Router();
 
-boards.get('/', (req,res)=> {
+let corsOptions = {
+    credentials: true,
+    origin: '*'
+}
+
+boards.get('/',cors(corsOptions), (req,res)=> {
     res.send('boardsPage')
 })
 
