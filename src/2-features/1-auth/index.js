@@ -10,13 +10,12 @@ let auth = express.Router();
 
 
 let corsOptions = {
-    credentials: true,
-    origin: 'http://localhost:3000/'
+    credentials: true
 }
 
-auth.post('/login',cors(corsOptions), login)
-auth.post('/register',cors(corsOptions), register)
-auth.get('/me',cors(corsOptions), authMe)
-auth.delete('/logout',cors(corsOptions), logOut)
+auth.post('/login',cors(), login)
+auth.post('/register',cors(), register)
+auth.get('/me',cors(), authMe)
+auth.delete('/logout',cors(), logOut)
 
 module.exports = auth
