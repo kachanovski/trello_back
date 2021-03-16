@@ -3,7 +3,7 @@
   "info": {
     "title": "Trello Clone API",
     "version": "v1",
-    "description": "test"
+    "description": "header === body"
   },
   "servers": [
     {
@@ -18,11 +18,9 @@
       "name": "auth"
     },
     {
-      "name": "tasks"
+      "name": "boards"
     }
   ],
-
-
   "paths": {
     "/auth/login": {
       "post": {
@@ -35,12 +33,12 @@
             "name": "data",
             "in": "header",
             "required": true,
-            "description": "data gor login",
+            "description": "Data for Login",
             "schema": {
               "type": "object",
               "example": {
                 "email": "string",
-                "userName": "string",
+                "password": "string",
                 "rememberMe": false
               }
             }
@@ -51,12 +49,15 @@
           "200": {
             "description": "OK",
             "content": {
-              "document": {
+              "*/*": {
                 "schema": {
                   "type": "object",
                   "example": {
-                    "email": "string",
-                    "userName": "string || ===email"
+                    "resultCode": 0,
+                    "data": {
+                      "email": "string",
+                      "userName": "string || ===email"
+                    }
                   }
                 }
               }
@@ -74,13 +75,13 @@
         "parameters": [
           {
             "name": "data",
-            "in": "body",
+            "in": "header",
             "required": true,
             "description": "data for register",
             "schema": {
               "example": {
-                  "email": "string",
-                  "password": "string"
+                "email": "string",
+                "password": "string"
               }
             }
           }
@@ -90,10 +91,270 @@
           "200": {
             "description": "OK",
             "content": {
-              "document": {
+              "*/*": {
                 "schema": {
                   "type": "string",
-                  "example": "user created"
+                  "example": {
+                    "resultCode": 0,
+                    "message": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "summary": "authMe",
+        "tags": [
+          "auth"
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "id": "string",
+                      "email": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "delete": {
+        "summary": "logOut",
+        "tags": [
+          "auth"
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+
+    "/boards": {
+      "get": {
+        "summary": "allBoards",
+        "tags": [
+          "boards"
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "board": "Array Boards"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "addBoard",
+        "tags": [
+          "boards"
+        ],
+        "parameters": [
+          {
+            "name": "boardData",
+            "in": "path",
+            "required": true,
+            "description": "board data",
+            "schema": {
+              "type": "object",
+              "example": {
+                "title": "string",
+                "author_id": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "Board added"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/boards/{id}": {
+      "get": {
+        "summary": "findBoard",
+        "tags": [
+          "boards"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "board id",
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "board": {
+                        "id": "string",
+                        "title": "string",
+                        "author_id": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "updateBoard",
+        "tags": [
+          "boards"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "board id",
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "string"
+              }
+            }
+          },
+          {
+            "name": "board",
+            "in": "header",
+            "required": true,
+            "description": "board data",
+            "schema": {
+              "type": "object",
+              "example": {
+                "title": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "board": {
+                        "id": "string",
+                        "title": "string",
+                        "author_id": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "deleteBoard",
+        "tags": [
+          "boards"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "board id",
+            "schema": {
+              "type": "string",
+              "example": {
+                "id": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "board deleted"
+                  }
                 }
               }
             }
@@ -102,28 +363,22 @@
       }
     }
   },
-
   "components": {
     "schemas": {
       "User": {
         "type": "object",
         "properties": {
           "userName": {
-            "type": "string",
-            "uniqueItems": true
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "required": ["*"],
-            "uniqueItems": true
+            "type": "string"
           },
           "password": {
-            "type": "string",
-            "required": ["*"]
+            "type": "string"
           },
           "rememberMe": {
-            "type": "boolean",
-            "required": ["*"]
+            "type": "boolean"
           },
           "teams": {
             "type": "array"
@@ -132,22 +387,21 @@
             "type": "array"
           },
           "verified": {
-            "type": "boolean",
-            "required": ["*"]
+            "type": "boolean"
           },
           "avatar": {
             "type": "string"
           },
-          "token":{
+          "token": {
             "type": "string"
           },
-          "tokenDeathTime":{
+          "tokenDeathTime": {
             "type": "number"
           },
-          "resetPasswordToken":{
+          "resetPasswordToken": {
             "type": "string"
           },
-          "resetPasswordTokenDeathTime":{
+          "resetPasswordTokenDeathTime": {
             "type": "number"
           }
         }
@@ -155,12 +409,18 @@
       "Board": {
         "type": "object",
         "properties": {
+          "author_id": {
+            "type": "string"
+          },
           "id": {
-            "type": "string",
-            "required": ["*"],
-            "uniqueItems": true
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
           }
-
         }
       }
     }
