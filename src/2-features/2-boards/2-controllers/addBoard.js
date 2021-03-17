@@ -5,7 +5,7 @@ const addBoard = async (req, res) => {
     try {
         const board = req.body;
         await Board.create(board)
-        console.log(board)
+
         res.status(201).json({
             resultCode: 0,
             message: 'Board added'

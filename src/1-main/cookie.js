@@ -11,7 +11,6 @@ const cookie = (app) => {
         //     return callback(null, true)
         //
         // callback(new Error('Not allowed by CORS'));
-        console.log("origin: ", origin);
         callback(null, true); // everyone is allowed
     }
 }

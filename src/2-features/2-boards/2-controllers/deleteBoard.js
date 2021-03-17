@@ -3,16 +3,15 @@ const Board = require('../1-models/Board')
 const deleteBoard = async (req, res) => {
     try {
         const id = req.path.slice(1);
-
         try {
-            await Board.findById(id).exec()
+            await Board.findById(id)
         } catch (e) {
             return res.status(500).json({
                 resultCode: 1,
-                message: 'Dont found board_id'
+                message: 'Dont found board id'
             })
         }
-        await Board.findByIdAndDelete(id).exec()
+        await Board.findByIdAndDelete(id)
         res.status(200).json({
             resultCode: 0,
             message: 'board deleted'
