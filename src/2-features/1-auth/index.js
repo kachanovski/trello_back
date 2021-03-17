@@ -13,7 +13,7 @@ let corsOptions = {
     credentials: true
 }
 
-auth.post('/login',cors(), login)
+auth.post('/login', login)
 auth.post('/register',cors(), register)
 auth.get('/me',cors(), authMe)
 auth.delete('/logout',cors(), logOut)
