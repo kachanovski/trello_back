@@ -18,10 +18,21 @@
     }
   ],
   "tags": [
-    {"name": "auth"},
-    {"name": "boards"},
-    {"name": "column"},
-    {"name": "cards"}
+    {
+      "name": "auth"
+    },
+    {
+      "name": "boards"
+    },
+    {
+      "name": "column"
+    },
+    {
+      "name": "cards"
+    },
+    {
+      "name": "team"
+    }
   ],
   "paths": {
     "/auth/login": {
@@ -160,7 +171,6 @@
         }
       }
     },
-
 
     "/boards": {
       "get": {
@@ -365,7 +375,6 @@
       }
     },
 
-
     "/column": {
       "get": {
         "summary": "getColumns",
@@ -536,9 +545,7 @@
           }
         }
       }
-
     },
-
 
     "/cards": {
       "get": {
@@ -710,10 +717,133 @@
           }
         }
       }
+    },
 
+    "/team": {
+      "get": {
+        "summary": "getMyTeams",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "user id",
+            "in": "query",
+            "required": true,
+            "description": "user_id",
+            "schema": {
+              "type": "string",
+              "example": "user_id"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "teams": {
+                        "_id": "string",
+                        "name": "string",
+                        "creator_id": "string",
+                        "participants": [
+                          {
+                            "userId": "string",
+                            "userName": "string"
+                          }
+                        ]
+                      },
+                      "count": "count teams"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "createTeam",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "header",
+            "required": true,
+            "description": "team name",
+            "schema": {
+              "type": "object",
+              "example": {
+                "name": "string",
+                "description": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "Team created"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{id)": {
+      "delete": {
+        "summary": "deleteTeam",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "team id",
+            "in": "path",
+            "required": true,
+            "description": "team id",
+            "schema": {
+              "type": "string",
+              "example": "teamId"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "team deleted"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
-
-
   },
   "components": {
     "schemas": {
@@ -809,6 +939,23 @@
           },
           "created": {
             "type": "string"
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "participants": {
+            "type": "array"
           }
         }
       }

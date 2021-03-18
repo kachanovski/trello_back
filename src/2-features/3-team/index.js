@@ -1,14 +1,12 @@
 const express = require('express')
-const login = require("./2-controllers/login");
-const register = require("./2-controllers/register");
-const authMe = require("./2-controllers/authMe");
-const logOut = require("./2-controllers/logOut");
+const createTeam = require("./2-controllers/createTeam");
+const getMyTeams = require("./2-controllers/getMyTeams");
+const deleteTeam = require("./2-controllers/deleteTeam");
 
 const team = express.Router();
 
-team.post('/login', login)
-team.post('/register', register)
-team.get('/me', authMe)
-team.delete('/logout', logOut)
+team.post('/', createTeam)
+team.get('/my-teams', getMyTeams)
+team.delete('/:id', deleteTeam)
 
 module.exports = team

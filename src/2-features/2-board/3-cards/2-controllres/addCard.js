@@ -1,16 +1,15 @@
-const Column = require('../1-models/Column')
-const Board = require('../../2-boards/1-models/Board')
+const Card = require('../1-models/Card')
+const Column = require('../../2-columns/1-models/Column')
 
-const addColumn = async (req, res) => {
-
+const addCard = async (req, res) => {
     try {
-        const {board_id} = req.query
+        const {column_id} = req.query
         const {title} = req.body
 
-        if (!board_id) {
+        if (!column_id) {
             return res.status(400).json({
                 resultCode: 1,
-                message: 'board Id not found.'
+                message: 'column Id not found.'
             })
         }
 
@@ -21,18 +20,18 @@ const addColumn = async (req, res) => {
             })
         }
 
-        const board = await Board.findById(board_id)
+        const column = await Column.findById(column_id)
 
-        const column = {
-            board_id: board?._id,
+        const card = {
+            column_id: column?._id,
             title: title
         }
 
-        await Column.create(column)
+        await Card.create(card)
 
         res.status(201).json({
             resultCode: 0,
-            message: 'Column added'
+            message: 'card added'
         })
     } catch (e) {
         res.status(500).json({
@@ -43,4 +42,4 @@ const addColumn = async (req, res) => {
     }
 }
 
-module.exports = addColumn
+module.exports = addCard
