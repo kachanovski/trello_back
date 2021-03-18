@@ -7,7 +7,7 @@ const createTeam = async (req, res) => {
 
         if (!name) {
             return res.status(400).json({
-                resultCode: "6050c4b0665e18194c7709b1",
+                resultCode: 1,
                 message: 'name is required !'
             })
         }

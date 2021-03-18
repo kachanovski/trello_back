@@ -16,3 +16,4 @@ const validateAuth = (req, res) => {
 };
 
 module.exports = validateAuth
+module.exports = emailValidator
