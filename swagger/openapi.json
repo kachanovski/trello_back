@@ -3,7 +3,14 @@
   "info": {
     "title": "Trello Clone API",
     "version": "v1",
-    "description": "baseUrl: https://trello-app-clone.herokuapp.com/"
+    "description": "header === body",
+    "contact": {
+      "email": "kachanovski03@gmail.com",
+      "name": "Alexander Kachanovski"
+    }
+  },
+  "externalDocs": {
+    "url": "/"
   },
   "servers": [
     {
@@ -13,7 +20,8 @@
   "tags": [
     {"name": "auth"},
     {"name": "boards"},
-    {"name": "column"}
+    {"name": "column"},
+    {"name": "cards"}
   ],
   "paths": {
     "/auth/login": {
@@ -444,7 +452,6 @@
           }
         }
       }
-
     },
     "/column/{id)": {
       "delete": {
@@ -530,6 +537,180 @@
         }
       }
 
+    },
+
+
+    "/cards": {
+      "get": {
+        "summary": "getCards",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "column ID",
+            "in": "query",
+            "required": true,
+            "description": "column_id",
+            "schema": {
+              "type": "string",
+              "example": "column_id"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "columns": "cards<Array<CardsType>>",
+                      "count": "count cards"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "addCards",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "column ID",
+            "in": "query",
+            "required": true,
+            "description": "column_id",
+            "schema": {
+              "type": "string",
+              "example": "column_id"
+            }
+          },
+          {
+            "name": "Card data",
+            "in": "header",
+            "required": true,
+            "description": "card data",
+            "schema": {
+              "type": "object",
+              "example": {
+                "title": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "Card added"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/{id)": {
+      "delete": {
+        "summary": "delete card",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "Card ID",
+            "in": "path",
+            "required": true,
+            "description": "Card id",
+            "schema": {
+              "type": "string",
+              "example": "CardId"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "card deleted"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "updateCard",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "card ID",
+            "in": "path",
+            "required": true,
+            "description": "column id",
+            "schema": {
+              "type": "string",
+              "example": "card id"
+            }
+          },
+          {
+            "name": "Card data",
+            "in": "header",
+            "required": true,
+            "description": "Card data",
+            "schema": {
+              "type": "object",
+              "example": {
+                "title": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "Card updated"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
 
 
@@ -598,6 +779,23 @@
         }
       },
       "Column": {
+        "type": "object",
+        "properties": {
+          "board_id": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          }
+        }
+      },
+      "Card": {
         "type": "object",
         "properties": {
           "board_id": {
