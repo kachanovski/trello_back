@@ -12,11 +12,14 @@ const authMe = async (req, res) => {
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         req.body = decoded;
+        console.log(decoded)
         return res.status(200).json({
             resultCode: 0,
             data: {
-                id: decoded._id,
-                email: decoded.email
+                test: '123',
+                _id: decoded._id,
+                email: decoded.email,
+                userName: decoded.userName
             }
         })
     } catch (er) {

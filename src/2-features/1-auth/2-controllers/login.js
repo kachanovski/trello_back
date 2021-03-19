@@ -14,7 +14,7 @@ const login = async (req, res) => {
                 resultCode: 1,
                 message: 'User not found'
             })
-        } else if (!(await bCrypt.compare(password, user.password))) {
+        } else if (!(await bCrypt.compare(password, user?.password))) {
             res.status(400).json({
                 resultCode: 1,
                 message: 'Incorrect password'
@@ -23,8 +23,9 @@ const login = async (req, res) => {
 
             const token = jwt.sign(
                 {
-                    id: user._id,
-                    email: user.email
+                    _id: user._id,
+                    email: user?.email,
+                    userName: user?.userName
                 },
                 config.jwtSecret,
                 {expiresIn: '24h'}
@@ -44,8 +45,8 @@ const login = async (req, res) => {
                         .status(201).json({
                         data: {
                             id: user._id,
-                            email: user.email,
-                            rememberMe: user.rememberMe,
+                            email: user?.email,
+                            rememberMe: user?.rememberMe,
                         },
                         resultCode: 0
                     });
