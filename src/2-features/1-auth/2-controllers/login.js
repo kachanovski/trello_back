@@ -1,7 +1,6 @@
 const User = require('../1-models/User')
 const jwt = require('jsonwebtoken')
-const bCrypt = require("bcrypt");
-const validateAuth = require("../../../1-main/1-helpers/validators");
+const bCrypt = require("bcrypt")
 const {config} = require('../../../1-main/config')
 
 const login = async (req, res) => {
@@ -20,7 +19,6 @@ const login = async (req, res) => {
                 message: 'Incorrect password'
             })
         } else {
-
             const token = jwt.sign(
                 {
                     _id: user._id,
@@ -28,20 +26,22 @@ const login = async (req, res) => {
                     userName: user?.userName
                 },
                 config.jwtSecret,
-                {expiresIn: '24h'}
+                {expiresIn: 60 * 60}
             )
+            console.log(token)
 
             try {
                 const newUser = await User.findByIdAndUpdate(
                     user._id,
                 ).exec()
+                console.log(newUser)
                 if (!newUser) {
                     res.status(500).json({
                         resultCode: 1,
                         message: "login/user maybe toten?"
                     })
                 } else {
-                    res.cookie('token', token)
+                    res.cookie('token', token,{})
                         .status(201).json({
                         data: {
                             id: user._id,

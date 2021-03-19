@@ -3,15 +3,10 @@ const cookieParser = require("cookie-parser")
 
 const cookie = (app) => {
 
-    // const whitelist = ['http://localhost:3000', 'http://example2.com'];
     const corsOptions = {
         credentials: true,
         origin: (origin, callback) => {
-        // if(whitelist.includes(origin || ""))
-        //     return callback(null, true)
-        //
-        // callback(new Error('Not allowed by CORS'));
-        callback(null, true); // everyone is allowed
+        callback(null, true);
     }
 }
 

@@ -719,7 +719,7 @@
       }
     },
 
-    "/team": {
+    "/team/my-teams": {
       "get": {
         "summary": "getMyTeams",
         "tags": [
@@ -727,7 +727,7 @@
         ],
         "parameters": [
           {
-            "name": "user id",
+            "name": "user_id",
             "in": "query",
             "required": true,
             "description": "user_id",
@@ -767,7 +767,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/team": {
       "post": {
         "summary": "createTeam",
         "tags": [
