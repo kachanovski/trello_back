@@ -17,6 +17,9 @@ const Team = new Schema(
         participants: {
             type: Array,
             required: true
+        },
+        inviteTokens: {
+            type: Array
         }
     }
 )

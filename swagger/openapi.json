@@ -14,7 +14,7 @@
   },
   "servers": [
     {
-      "url": "https://trello-app-clone.herokuapp.com/"
+      "url": "https://trello-clone-back.herokuapp.com/"
     }
   ],
   "tags": [
@@ -576,7 +576,7 @@
                   "example": {
                     "resultCode": 0,
                     "data": {
-                      "columns": "cards<Array<CardsType>>",
+                      "cards": "cards<Array<CardsType>>",
                       "count": "count cards"
                     }
                   }
@@ -955,6 +955,9 @@
             "type": "string"
           },
           "participants": {
+            "type": "array"
+          },
+          "inviteToken": {
             "type": "array"
           }
         }

@@ -1,24 +1,25 @@
-const nodeMailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 
-const transporter = nodeMailer.createTransport({
-    service: "gmail",
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-        type: "login"
-    }
-});
+        type: 'login',
+        user: process.env.GMAIL_USER || 'jleninprolol@gmail.com',
+        pass: process.env.GMAIL_PASS || 'dmnvzndobrerfeaj',
+    },
+})
 
-const sendMail = async () => {
+const sendMail = async (to,inviteT,team_id) => {
 
     const info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: "kachanovski03@gmail.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
+        from: '"incubator_team 👻" <trello_clone@gmail.com>',
+        to: to,
+        subject: "Hello ✔",
+        text: `Дейсвителен 1день`,
+        html: `<b>http:localhost:3000/${inviteT.inviteToken}</b>`
     });
-    console.log(info)
-    console.log("Message sent: %s", info?.messageId);
-    console.log("Preview URL: %s", nodeMailer.getTestMessageUrl(info));
 
     return info;
 }

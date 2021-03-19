@@ -46,6 +46,12 @@ const User = new Schema(
         resetPasswordTokenDeathTime: {
             type: Number,
         },
+        inviteToken: {
+            type: Array
+        },
+        inviteTokenDeathTime: {
+            type: Number
+        }
     }
 )
 
