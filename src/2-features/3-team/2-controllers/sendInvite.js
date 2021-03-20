@@ -1,7 +1,7 @@
 const Team = require('../1-models/Team')
 const sendMail = require("../../../1-main/1-helpers/sendMail")
 const emailValidator = require("../../../1-main/1-helpers/validators")
-const generateInviteToken = require("../../../1-main/1-helpers/generateInviteToken");
+const generateInviteToken = require("../../../1-main/1-helpers/generateToken");
 
 const sendInvite = async (req, res) => {
     try {

@@ -1,13 +1,11 @@
 const bCrypt = require("bcrypt")
 const User = require('../1-models/User')
-const validateAuth = require("../../../1-main/1-helpers/validators")
 
 const register = async (req, res) => {
-    console.log(req.body)
+
     const {email, password} = req.body
 
     try {
-        console.log('1')
         const oldUser = await User.findOne({email}).exec()
         if (oldUser) {
             res.status(400).json({
@@ -23,15 +21,12 @@ const register = async (req, res) => {
 
                     userName: email,
                     verified: false,
-
-                    teams: [],
-                    boards: []
                 }
-            )
+            ).exec()
 
-            const addedUser = {...user._doc};
+            const addedUser = {...user};
 
-            delete addedUser.password; // ne visilai parol` na front!!!!!
+            delete addedUser.password;
 
             res.status(201).json({
                 resultCode: 0,

@@ -34,12 +34,6 @@ const User = new Schema(
         avatar: {
             type: String
         },
-        token: {
-            type: String,
-        },
-        tokenDeathTime: {
-            type: Number,
-        },
         resetPasswordToken: {
             type: String,
         },
