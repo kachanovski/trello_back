@@ -10,6 +10,6 @@ let auth = express.Router();
 auth.post('/login', login)
 auth.post('/register', register)
 auth.post('/me', findUserByToken(authMe))
-auth.delete('/logout', logOut)
+auth.delete('/logout', findUserByToken(logOut))
 
 module.exports = auth
