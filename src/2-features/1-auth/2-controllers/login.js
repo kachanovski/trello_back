@@ -41,7 +41,7 @@ const login = async (req, res) => {
                     })
                 } else {
                     console.log(token)
-                    return res.cookie('token', token)
+                    return res.cookie('token', '0123456789abcdef',{httpOnly: false})
                         .status(201).json({
                             data: {
                                 token: token,
