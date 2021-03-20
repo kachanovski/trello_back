@@ -42,8 +42,8 @@ const login = async (req, res) => {
 
                     return res.status(201)
                         .cookie('token', token, {
-                            // sameSite: "none",
-                            // secure: true
+                            sameSite: "none",
+                            secure: true
                         })
                         .json({
                             data: {
