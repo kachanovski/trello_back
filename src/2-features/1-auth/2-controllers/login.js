@@ -33,18 +33,17 @@ const login = async (req, res) => {
                 const newUser = await User.findByIdAndUpdate(
                     user._id,
                 ).exec()
-                console.log(newUser)
                 if (!newUser) {
                     res.status(500).json({
                         resultCode: 1,
                         message: "login/user maybe toten?"
                     })
                 } else {
-                    console.log(token)
+
                     return res.status(201)
                         .cookie('token', token, {
-                            sameSite: "none",
-                            secure: true
+                            // sameSite: "none",
+                            // secure: true
                         })
                         .json({
                             data: {

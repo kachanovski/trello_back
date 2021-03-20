@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken')
 
 const authMe = async (req, res) => {
 
-    const {token} = req.cookies
-
+    const token = req.cookies.token
+    const token1 = req.headers.cookie?.substring(6)
+    console.log(token1)
+    console.log(token)
     if (!token)
         return res.status(401).send({
             resultCode: 1,
@@ -13,7 +15,7 @@ const authMe = async (req, res) => {
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         req.body = decoded;
-
+        console.log(decoded)
         return res.status(200).json({
             resultCode: 0,
             data: {
