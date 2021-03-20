@@ -41,8 +41,12 @@ const login = async (req, res) => {
                     })
                 } else {
                     console.log(token)
-                    return res.cookie('token', '0123456789abcdef',{httpOnly: false})
-                        .status(201).json({
+                    return res.status(201)
+                        .cookie('token', '0123456789abcdef', {
+                            expires: new Date(Date.now() + 9999999),
+                            httpOnly: true
+                        })
+                        .json({
                             data: {
                                 token: token,
                                 id: user._id,
