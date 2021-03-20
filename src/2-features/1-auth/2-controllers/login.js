@@ -43,7 +43,6 @@ const login = async (req, res) => {
                     console.log(token)
                     return res.status(201)
                         .cookie('token', token, {
-                            domain: 'localhost',
                             sameSite: "none",
                             secure: true
                         })
