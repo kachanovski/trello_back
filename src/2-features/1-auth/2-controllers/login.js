@@ -28,7 +28,6 @@ const login = async (req, res) => {
                 config.jwtSecret,
                 {expiresIn: 60 * 60}
             )
-            console.log(token)
 
             try {
                 const newUser = await User.findByIdAndUpdate(
@@ -41,15 +40,17 @@ const login = async (req, res) => {
                         message: "login/user maybe toten?"
                     })
                 } else {
-                    res.cookie('token', token,{})
+                    console.log(token)
+                    return res.cookie('token', token)
                         .status(201).json({
-                        data: {
-                            id: user._id,
-                            email: user?.email,
-                            rememberMe: user?.rememberMe,
-                        },
-                        resultCode: 0
-                    });
+                            data: {
+                                token: token,
+                                id: user._id,
+                                email: user?.email,
+                                rememberMe: user?.rememberMe,
+                            },
+                            resultCode: 0
+                        });
                 }
 
             } catch (e) {
