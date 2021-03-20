@@ -14,7 +14,7 @@ const findUserByToken = (f) => async (req, res) => {
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         const updateToken = await generateToken(decoded)
-        res.cookie('token', updateToken, {
+        res.cookie('token', token, {
                 sameSite: "none",
                 secure: true
             })
