@@ -2,7 +2,7 @@ const {config} = require("../config")
 const jwt = require('jsonwebtoken')
 const generateToken = require("./generateToken");
 
-const findUserByToken = (f) => async (req, res) => {
+const isAuth = (f) => async (req, res) => {
 
     const {token} = req.cookies
 
@@ -14,18 +14,18 @@ const findUserByToken = (f) => async (req, res) => {
     try {
         const decoded = jwt.verify(token, config.jwtSecret)
         const updateToken = await generateToken(decoded)
-        res.cookie('token', token, {
-                sameSite: "none",
-                secure: true
+        res.cookie('token', updateToken, {
+                // sameSite: "none",
+                // secure: true
             })
         f(req,res)
     } catch (er) {
         res.clearCookie("token");
         return res.status(400).send({
             resultCode: 1,
-            message: er.message
+            message: "token is ended"
         })
     }
 }
 
-module.exports = findUserByToken
+module.exports = isAuth

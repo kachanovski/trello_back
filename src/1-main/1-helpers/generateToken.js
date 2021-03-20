@@ -20,7 +20,7 @@ const generateToken = (user, rememberMe = false) => {
         {
             expiresIn: rememberMe
                 ? 60 * 60 * 24 * 7
-                : 60 * 60 * 24 * 3
+                : 5
         }
     )
     return token
