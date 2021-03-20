@@ -15,8 +15,8 @@ const isAuth = (f) => async (req, res) => {
         const decoded = jwt.verify(token, config.jwtSecret)
         const updateToken = await generateToken(decoded)
         res.cookie('token', updateToken, {
-                // sameSite: "none",
-                // secure: true
+                sameSite: "none",
+                secure: true
             })
         f(req,res)
     } catch (er) {
