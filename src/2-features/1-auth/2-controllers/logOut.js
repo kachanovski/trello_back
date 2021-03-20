@@ -1,6 +1,6 @@
 const logOut = async (req, res) => {
     try {
-        res.cookie("token", '', {
+        res.clearCookie("token").cookie("token", '', {
             expires: new Date(0),
         })
             .status(201).json({
