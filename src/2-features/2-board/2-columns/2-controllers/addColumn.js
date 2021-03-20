@@ -21,10 +21,10 @@ const addColumn = async (req, res) => {
             })
         }
 
-        const board = await Board.findById(board_id)
+        const board = await Board.findById(board_id).exec()
 
         const column = {
-            board_id: board?._id,
+            board_id: board._id,
             title: title
         }
 

@@ -20,10 +20,10 @@ const addCard = async (req, res) => {
             })
         }
 
-        const column = await Column.findById(column_id)
+        const column = await Column.findById(column_id).exec()
 
         const card = {
-            column_id: column?._id,
+            column_id: column._id,
             title: title
         }
 

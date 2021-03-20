@@ -8,8 +8,8 @@ const isAuth = require("./1-helpers/isAuth");
 const routes = (app) => {
     app.use('/auth', auth)
     app.use('/boards', isAuth(boards))
-    app.use('/column', column)
-    app.use('/cards', cards)
-    app.use('/team', team)
+    app.use('/column', isAuth(column))
+    app.use('/cards', isAuth(cards))
+    app.use('/team', isAuth(team))
 }
 module.exports = routes
