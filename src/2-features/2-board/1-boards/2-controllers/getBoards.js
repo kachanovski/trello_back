@@ -1,8 +1,12 @@
 const Board = require('../1-models/Board')
 
 const getBoards = async (req, res) => {
+
+    const {team_id} = req.query
+
     try {
-        const boards = await Board.find().exec()
+        const boards = await Board.find({team_id}).exec()
+
         res.json({
             resultCode: 0,
             data: {

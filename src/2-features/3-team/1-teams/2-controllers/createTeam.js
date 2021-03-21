@@ -1,9 +1,10 @@
 const Team = require('../1-models/Team')
+const Member = require('../1-models/Member')
 
 const createTeam = async (req, res) => {
 
     try {
-        const {name, description} = req.body
+        const {name, description, user_id} = req.body
 
         if (!name) {
             return res.status(400).json({
@@ -12,22 +13,15 @@ const createTeam = async (req, res) => {
             })
         }
 
-        const creator = {
-            id: "6050c4b0665e18194c7709b1",
-            name: "Alex"
+        const team = await Team.create({ name, description})
+
+        const newMember = {
+            team_id: team?._id,
+            user_id,
+            isAdmin: true
         }
 
-        const team = {
-            name,
-            creator_id: creator.id,
-            description,
-            participants: {
-                userId: creator.id,
-                userName: creator.name
-            }
-        }
-
-        await Team.create(team)
+        await Member.create(newMember)
 
         res.status(201).json({
             resultCode: 0,

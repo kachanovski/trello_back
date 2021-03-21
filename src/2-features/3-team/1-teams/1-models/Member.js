@@ -1,20 +1,20 @@
 const {model} = require("mongoose")
 const {Schema} = require("mongoose")
 
-const Board = new Schema(
+const Member = new Schema(
     {
         team_id: {
             type: String,
             required: true
         },
-        title: {
+        user_id: {
             type: String,
             required: true
+        },
+        isAdmin: {
+            type: Boolean
         }
-    },
-    {
-        created: "created"
     }
 )
 
-module.exports = model("Board", Board);
+module.exports = model("Member", Member);

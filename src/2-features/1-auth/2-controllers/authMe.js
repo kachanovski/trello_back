@@ -1,7 +1,9 @@
 const {config} = require("../../../1-main/config")
 const jwt = require('jsonwebtoken')
 
-const authMe = async (req, res) => {
+const authMe = async (req, res,user) => {
+
+    console.log(user)
 
     const {token} = req.cookies
     try {

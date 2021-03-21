@@ -2,7 +2,7 @@ const {config} = require("../config")
 const jwt = require('jsonwebtoken')
 const generateToken = require("./generateToken");
 
-const isAuth = (f) => async (req, res) => {
+const isAuth = (func) => async (req, res) => {
 
     const {token} = req.cookies
 
@@ -12,13 +12,14 @@ const isAuth = (f) => async (req, res) => {
             message: "Access denied...No token provided..."
         })
     try {
-        const decoded = jwt.verify(token, config.jwtSecret)
-        const updateToken = await generateToken(decoded)
+        const decodeUser = jwt.verify(token, config.jwtSecret)
+
+        const updateToken = await generateToken(decodeUser)
         res.cookie('token', updateToken, {
                 sameSite: "none",
                 secure: true
             })
-        f(req,res)
+        func(req,res)
     } catch (er) {
         res.clearCookie("token");
         return res.status(400).send({

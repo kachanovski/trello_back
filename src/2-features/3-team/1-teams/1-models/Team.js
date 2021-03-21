@@ -7,19 +7,8 @@ const Team = new Schema(
             type: String,
             required: true,
         },
-        creator_id: {
-            type: String,
-            required: true,
-        },
         description: {
             type: String
-        },
-        participants: {
-            type: Array,
-            required: true
-        },
-        inviteTokens: {
-            type: Array
         }
     }
 )

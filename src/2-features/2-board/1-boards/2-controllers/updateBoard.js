@@ -3,6 +3,7 @@ const Board = require('../1-models/Board')
 const updateBoard = async (req, res) => {
     try {
         const board_id = req.path.slice(1)
+        const {title} = req.body
 
         const findCard = await Board.findById(board_id)
         if (!findCard) {
@@ -11,7 +12,7 @@ const updateBoard = async (req, res) => {
                 message: 'Dont found board_id'
             })
         }
-        await Board.findByIdAndUpdate(board_id, req.body).exec()
+        await Board.findByIdAndUpdate(board_id, {title})
         res.status(200).json({
             resultCode: 0,
             message: 'board updated'

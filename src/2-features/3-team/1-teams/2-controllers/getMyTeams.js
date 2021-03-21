@@ -1,9 +1,10 @@
 const Team = require('../1-models/Team')
+const Member = require('../1-models/Member')
 
 const getMyTeams = async (req, res) => {
 
     try {
-        const {user_id} = req.query
+       const {user_id} = req.query
 
         if (!user_id) {
             return res.status(400).json({
@@ -12,8 +13,11 @@ const getMyTeams = async (req, res) => {
             })
         }
 
-        const teams = await Team.find()
-        const myTeams = teams?.filter(i => i.creator_id === user_id)
+        const consistsInTeam = await Member.find({user_id})
+
+        const allTeams = await Team.find()
+
+        const myTeams = consistsInTeam?.map(i => allTeams?.find(m =>  m._id.toString() === i.team_id))
 
         res.status(201).json({
             resultCode: 0,

@@ -181,6 +181,18 @@
         "tags": [
           "boards"
         ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": true,
+            "description": "team_id",
+            "schema": {
+              "type": "string",
+              "example": "team_id"
+            }
+          }
+        ],
         "description": "Parameters",
         "responses": {
           "200": {
@@ -216,7 +228,7 @@
               "type": "object",
               "example": {
                 "title": "string",
-                "author_id": "string"
+                "team_id": "string"
               }
             }
           }
@@ -722,56 +734,6 @@
       }
     },
 
-    "/team/my-teams": {
-      "get": {
-        "summary": "getMyTeams",
-        "tags": [
-          "team"
-        ],
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": true,
-            "description": "user_id",
-            "schema": {
-              "type": "string",
-              "example": "user_id"
-            }
-          }
-        ],
-        "description": "Parameters",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "example": {
-                    "resultCode": 0,
-                    "data": {
-                      "teams": {
-                        "_id": "string",
-                        "name": "string",
-                        "creator_id": "string",
-                        "participants": [
-                          {
-                            "userId": "string",
-                            "userName": "string"
-                          }
-                        ]
-                      },
-                      "count": "count teams"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/team": {
       "post": {
         "summary": "createTeam",
@@ -780,13 +742,14 @@
         ],
         "parameters": [
           {
-            "name": "name",
+            "name": "body",
             "in": "header",
             "required": true,
-            "description": "team name",
+            "description": "team data",
             "schema": {
               "type": "object",
               "example": {
+                "user_id": "string",
                 "name": "string",
                 "description": "string"
               }
@@ -820,10 +783,10 @@
         ],
         "parameters": [
           {
-            "name": "team id",
+            "name": "team_id",
             "in": "path",
             "required": true,
-            "description": "team id",
+            "description": "team_id",
             "schema": {
               "type": "string",
               "example": "teamId"
@@ -841,6 +804,84 @@
                   "example": {
                     "resultCode": 0,
                     "message": "team deleted"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "updateTeeam",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "name",
+            "schema": {
+              "type": "string",
+              "example": "newName"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "team deleted"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/my-teams": {
+      "get": {
+        "summary": "getMyTeams",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "description": "user_id",
+            "schema": {
+              "type": "string",
+              "example": "user_id"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": {
+                      "teams": [{
+                        "_id": "string",
+                        "name": "string"
+                      }],
+                      "count": "count teams"
+                    }
                   }
                 }
               }
@@ -944,20 +985,14 @@
       "Team": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
           "_id": {
             "type": "string"
           },
-          "description": {
+          "name": {
             "type": "string"
           },
-          "participants": {
-            "type": "array"
-          },
-          "inviteToken": {
-            "type": "array"
+          "isAdmin": {
+            "type": "boolean"
           }
         }
       }
