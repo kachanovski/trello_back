@@ -121,6 +121,81 @@
         }
       }
     },
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "sendMailSetNewPassword",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "header",
+            "required": true,
+            "description": "email",
+            "schema": {
+              "example": "email"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "Письмо отправлено на указанный email"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "summary": "setNewPassword",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "header",
+            "required": true,
+            "description": "set new password data",
+            "schema": {
+              "example": {
+                "token": "string",
+                "password": "srting"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "example": {
+                    "resultCode": 0,
+                    "message": "Пароль успешно изменен"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/me": {
       "post": {
         "summary": "authMe",
@@ -876,10 +951,12 @@
                   "example": {
                     "resultCode": 0,
                     "data": {
-                      "teams": [{
-                        "_id": "string",
-                        "name": "string"
-                      }],
+                      "teams": [
+                        {
+                          "_id": "string",
+                          "name": "string"
+                        }
+                      ],
                       "count": "count teams"
                     }
                   }
@@ -918,15 +995,17 @@
                   "type": "object",
                   "example": {
                     "resultCode": 0,
-                    "data": ["string"]
-                    }
+                    "data": [
+                      "string"
+                    ]
                   }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
     "/team/member": {
       "post": {
         "summary": "addMemder",
@@ -958,15 +1037,15 @@
                   "type": "object",
                   "example": {
                     "resultCode": 0,
-                    "message" : "Пользователь добавлен"
-                    }
+                    "message": "Пользователь добавлен"
                   }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
     "/team/send-invite": {
       "post": {
         "summary": "send email ti invite",
@@ -998,15 +1077,15 @@
                   "type": "object",
                   "example": {
                     "resultCode": 0,
-                    "message" : "Приглашение отправлено"
-                    }
+                    "message": "Приглашение отправлено"
                   }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
     "/team/accept-invite": {
       "post": {
         "summary": "send email ti invite",
@@ -1035,8 +1114,7 @@
                   "type": "object",
                   "example": {
                     "resultCode": 0,
-                    "message" : "Пользлватель добавлен"
-                    }
+                    "message": "Пользлватель добавлен"
                   }
                 }
               }
@@ -1044,7 +1122,7 @@
           }
         }
       }
-
+    }
   },
   "components": {
     "schemas": {

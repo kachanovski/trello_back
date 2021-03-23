@@ -8,6 +8,7 @@ const config = {
     PORT:5000,
     jwtSecret: 'isAuthPassword',
     jwtSecretTeam: 'inviteToTeamPass',
+    jwtSecretResetPassword: 'resetPasswordToken',
 }
 
 

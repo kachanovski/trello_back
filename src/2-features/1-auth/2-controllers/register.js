@@ -10,7 +10,7 @@ const register = async (req, res) => {
         if (oldUser) {
             res.status(400).json({
                 resultCode: 1,
-                message: 'email exists'
+                message: 'Пользователь с таким email, уже существует'
             })
         } else {
             const user = await User.create(
@@ -30,14 +30,14 @@ const register = async (req, res) => {
 
             res.status(201).json({
                 resultCode: 0,
-                message: 'User created'
+                message: 'Пользователь зарегистрирован'
             })
         }
     } catch (e) {
         console.log(e)
         res.status(500).json({
             resultCode: 1,
-            message: 'Yoops, something went wrong.'
+            message: 'Что то пошло не так.Сервер не значет в чем проблема.'
         })
     }
 }

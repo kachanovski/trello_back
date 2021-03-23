@@ -11,18 +11,18 @@ const login = async (req, res) => {
         if (!user) {
             res.status(400).json({
                 resultCode: 1,
-                message: 'Incorrect email'
+                message: 'Неверный email или пароль'
             })
         } else if (!(await bCrypt.compare(password, user?.password))) {
             res.status(400).json({
                 resultCode: 1,
-                message: 'Incorrect password'
+                message: 'Неверный email или пароль'
             })
         } else {
 
             const token = await generateToken(user, rememberMe)
 
-            return res.status(201)
+            res.status(201)
                 .cookie('token', token, {
                     sameSite: "none",
                     secure: true
@@ -39,7 +39,7 @@ const login = async (req, res) => {
     } catch (e) {
         res.status(500).json({
             resultCode: 1,
-            message: 'Yoops, something went wrong.'
+            message: 'Что то пошло не так.Сервер не значет в чем проблема.'
         })
     }
 }
