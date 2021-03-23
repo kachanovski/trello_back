@@ -21,12 +21,6 @@ const User = new Schema(
             type: Boolean,
             required: true
         },
-        teams: {
-            type: Array
-        },
-        boards: {
-            type: Array
-        },
         verified: {
             type: Boolean,
             required: true

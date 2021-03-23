@@ -11,14 +11,14 @@ const transporter = nodemailer.createTransport({
     },
 })
 
-const sendMail = async (to,inviteT,team_id) => {
+const sendMail = async (to,inviteToken) => {
 
     const info = await transporter.sendMail({
         from: '"incubator_team 👻" <trello_clone@gmail.com>',
         to: to,
         subject: "Hello ✔",
-        text: `Дейсвителен 1день`,
-        html: `<b>http:localhost:3000/${inviteT.inviteToken}</b>`
+        text: `Дейсвителен 3день`,
+        html: `<b>http:localhost:3000?token=${inviteToken}</b>`
     });
 
     return info;

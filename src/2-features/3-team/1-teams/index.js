@@ -2,10 +2,11 @@ const express = require('express')
 const createTeam = require("./2-controllers/createTeam");
 const getMyTeams = require("./2-controllers/getMyTeams");
 const deleteTeam = require("./2-controllers/deleteTeam");
-const sendInvite = require("./2-controllers/sendInvite");
-const acceptInvite = require("./2-controllers/checkInvite");
+const sendInviteToTeam = require("./2-controllers/sendInviteToTeam");
+const acceptInviteToTeam = require("./2-controllers/acceptInviteToTeam");
 const addMember = require("./2-controllers/addMember");
 const updateTeam = require("./2-controllers/updateTeam");
+const findUser = require("./2-controllers/findUser");
 
 const team = express.Router();
 
@@ -14,9 +15,10 @@ team.delete('/:id', deleteTeam)
 team.put('/:id', updateTeam)
 team.get('/my-teams', getMyTeams)
 
-
-team.post('/send-invite', sendInvite)
-team.post('/accept-invite', acceptInvite)
+team.get('/find', findUser )
 team.post('/member', addMember)
+team.post('/send-invite', sendInviteToTeam)
+team.post('/accept-invite', acceptInviteToTeam)
+
 
 module.exports = team

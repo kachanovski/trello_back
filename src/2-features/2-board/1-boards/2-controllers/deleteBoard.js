@@ -1,4 +1,5 @@
 const Board = require('../1-models/Board')
+const Column = require('../../2-columns/')
 
 const deleteBoard = async (req, res) => {
     try {
@@ -12,6 +13,7 @@ const deleteBoard = async (req, res) => {
             })
         }
         await Board.findByIdAndDelete(id)
+        await Column.find({board_id: id}).remove()
         res.status(200).json({
             resultCode: 0,
             message: 'board deleted'

@@ -16,7 +16,6 @@ const getMyTeams = async (req, res) => {
         const consistsInTeam = await Member.find({user_id})
 
         const allTeams = await Team.find()
-
         const myTeams = consistsInTeam?.map(i => allTeams?.find(m =>  m._id.toString() === i.team_id))
 
         res.status(201).json({

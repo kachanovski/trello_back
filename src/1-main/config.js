@@ -6,7 +6,8 @@ const MONGO_DB_URL = process.env.MONGO_DB_URL || "cluster0.kbyeg.mongodb.net/myF
 const config = {
     MongoDBUris: `mongodb+srv://${USER_NAME}:${PASSWORD}@${MONGO_DB_URL}?retryWrites=true&w=majority`,
     PORT:5000,
-    jwtSecret: 'secretPassword'
+    jwtSecret: 'isAuthPassword',
+    jwtSecretTeam: 'inviteToTeamPass',
 }
 
 

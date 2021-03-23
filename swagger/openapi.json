@@ -889,7 +889,162 @@
           }
         }
       }
-    }
+    },
+    "/team/find": {
+      "get": {
+        "summary": "findUser",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "user email",
+            "schema": {
+              "type": "string",
+              "example": "email"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "data": ["string"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+    "/team/member": {
+      "post": {
+        "summary": "addMemder",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "header",
+            "required": true,
+            "description": "dataInvite",
+            "schema": {
+              "type": "object",
+              "example": {
+                "email": "string",
+                "team_id": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message" : "Пользователь добавлен"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+    "/team/send-invite": {
+      "post": {
+        "summary": "send email ti invite",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "header",
+            "required": true,
+            "description": "dataInvite",
+            "schema": {
+              "type": "object",
+              "example": {
+                "email": "string",
+                "team_id": "string"
+              }
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message" : "Приглашение отправлено"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+    "/team/accept-invite": {
+      "post": {
+        "summary": "send email ti invite",
+        "tags": [
+          "team"
+        ],
+        "parameters": [
+          {
+            "name": "inviteToken",
+            "in": "header",
+            "required": true,
+            "description": "inviteToken",
+            "schema": {
+              "type": "string",
+              "example": "inviteToken"
+            }
+          }
+        ],
+        "description": "Parameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "resultCode": 0,
+                    "message" : "Пользлватель добавлен"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
   },
   "components": {
     "schemas": {
@@ -910,12 +1065,6 @@
           },
           "rememberMe": {
             "type": "boolean"
-          },
-          "teams": {
-            "type": "array"
-          },
-          "boards": {
-            "type": "array"
           },
           "verified": {
             "type": "boolean"

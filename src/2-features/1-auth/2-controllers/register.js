@@ -22,7 +22,7 @@ const register = async (req, res) => {
                     userName: email,
                     verified: false,
                 }
-            ).exec()
+            )
 
             const addedUser = {...user};
 

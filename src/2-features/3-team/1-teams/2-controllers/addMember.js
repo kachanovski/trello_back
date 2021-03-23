@@ -1,49 +1,48 @@
 const Team = require('../1-models/Team')
 const User = require('../../../1-auth/1-models/User')
+const Member = require('../1-models/Member')
 
 const addMember = async (req, res) => {
-
     const {email, team_id} = req.body
 
     try {
 
-        const newMember = await User.findOne({email}).exec()
-        if (!newMember) {
+        const user = await User.findOne({email}).exec()
+        if (!user) {
             return res.status(500).json({
                 resultCode: 1,
-                message: 'user not found'
+                message: 'Пользователь не найден'
             })
         }
 
         const team = await Team.findById(team_id)
+
         if (!team) {
             return res.status(500).json({
                 resultCode: 1,
-                message: 'team not found'
+                message: 'Каманда не найдена'
             })
         }
-        if(team?.members.find(i => i.userId == newMember._id.toString())) {
-            return res.status(500).json({
+        const member = await Member.findOne({team_id, user_id: user._id})
+
+        if (member){
+            return res.status(400).json({
                 resultCode: 1,
-                message: 'user include in this group'
+                message: 'Участником уже состоит в данной команде'
             })
         }
 
-        const update = await Team.findByIdAndUpdate(team_id, {
-            ...team._doc,
-            members: [...team?.members, {userId: newMember._id}]
-        }, {new: true})
+        await Member.create({team_id, user_id: user._id})
 
         res.status(200).json({
-            data: update,
             resultCode: 0,
-            message: 'team deleted'
+            message: 'Участник добавлен'
         })
 
     } catch (e) {
         res.status(500).json({
             resultCode: 1,
-            message: 'Yoops, something went wrong(add members).'
+            message: 'Что-то пошло не так. Сервер не значет что это за ошибка '
         })
     }
 }
